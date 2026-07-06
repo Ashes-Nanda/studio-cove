@@ -1,27 +1,9 @@
-import { createFileRoute } from "@tanstack/react-router";
-import { useServerFn } from "@tanstack/react-start";
-import { useState } from "react";
-import { submitWaitlist, waitlistSchema } from "../lib/waitlist.functions";
-import { LiquidButton } from "@/components/ui/liquid-glass-button";
+"use client";
 
-export const Route = createFileRoute("/waitlist")({
-  head: () => ({
-    meta: [
-      { title: "Start a Project — Studio Cove" },
-      {
-        name: "description",
-        content:
-          "Tell us about your brand. We respond personally to every project we're the right studio for.",
-      },
-      { property: "og:title", content: "Start a Project — Studio Cove" },
-      {
-        property: "og:description",
-        content: "Let's make waves. Start a project with Studio Cove.",
-      },
-    ],
-  }),
-  component: Waitlist,
-});
+import { useState } from "react";
+import { submitWaitlist } from "@/lib/waitlist-actions";
+import { waitlistSchema } from "@/lib/waitlist-schema";
+import { LiquidButton } from "@/components/ui/liquid-glass-button";
 
 const SERVICES = [
   "Branding",
@@ -47,13 +29,10 @@ const initial: FormState = {
   service: "",
 };
 
-function Waitlist() {
-  const submit = useServerFn(submitWaitlist);
+export function WaitlistForm() {
   const [form, setForm] = useState<FormState>(initial);
   const [errors, setErrors] = useState<Partial<Record<keyof FormState, string>>>({});
-  const [status, setStatus] = useState<"idle" | "sending" | "done" | "error">(
-    "idle",
-  );
+  const [status, setStatus] = useState<"idle" | "sending" | "done" | "error">("idle");
   const [errorMsg, setErrorMsg] = useState<string | null>(null);
 
   async function onSubmit(e: React.FormEvent) {
@@ -72,7 +51,7 @@ function Waitlist() {
     setErrors({});
     setStatus("sending");
     try {
-      const res = await submit({ data: parsed.data });
+      const res = await submitWaitlist(parsed.data);
       if (res.ok) {
         setStatus("done");
       } else {
@@ -81,9 +60,7 @@ function Waitlist() {
       }
     } catch (err) {
       setStatus("error");
-      setErrorMsg(
-        err instanceof Error ? err.message : "Something went wrong.",
-      );
+      setErrorMsg(err instanceof Error ? err.message : "Something went wrong.");
     }
   }
 
@@ -97,21 +74,19 @@ function Waitlist() {
           Let&rsquo;s make waves.
         </h1>
         <p className="text-xl md:text-2xl text-ink/70 leading-relaxed max-w-2xl mb-20">
-          Tell us a little about your brand. We respond personally to every
-          project we&rsquo;re the right studio for.
+          Tell us a little about your brand. We respond personally to every project we&rsquo;re the
+          right studio for.
         </p>
 
         {status === "done" ? (
           <div className="border-t border-border pt-16 max-w-2xl">
-            <p className="font-mono text-[10px] uppercase text-accent mb-6">
-              [ Received ]
-            </p>
+            <p className="font-mono text-[10px] uppercase text-accent mb-6">[ Received ]</p>
             <p className="font-display italic text-4xl md:text-5xl leading-tight mb-6">
               Thank you, {form.name.split(" ")[0]}.
             </p>
             <p className="text-ink/60">
-              Your note is with the studio. If there&rsquo;s a fit, we&rsquo;ll
-              be in touch within five working days.
+              Your note is with the studio. If there&rsquo;s a fit, we&rsquo;ll be in touch within
+              five working days.
             </p>
           </div>
         ) : (
@@ -149,33 +124,21 @@ function Waitlist() {
                 type="text"
                 required
                 value={form.companyName}
-                onChange={(e) =>
-                  setForm({ ...form, companyName: e.target.value })
-                }
+                onChange={(e) => setForm({ ...form, companyName: e.target.value })}
                 className="bg-transparent border-b border-ink/20 py-3 w-full focus:outline-none focus:border-accent transition-colors text-base"
               />
             </Field>
-            <Field
-              label="Company Instagram Handle"
-              required
-              error={errors.companyInstagram}
-            >
+            <Field label="Company Instagram Handle" required error={errors.companyInstagram}>
               <input
                 type="text"
                 required
                 value={form.companyInstagram}
-                onChange={(e) =>
-                  setForm({ ...form, companyInstagram: e.target.value })
-                }
+                onChange={(e) => setForm({ ...form, companyInstagram: e.target.value })}
                 placeholder="@yourbrand"
                 className="bg-transparent border-b border-ink/20 py-3 w-full focus:outline-none focus:border-accent transition-colors text-base placeholder:text-ink/30"
               />
             </Field>
-            <Field
-              label="Service you're looking for"
-              required
-              error={errors.service}
-            >
+            <Field label="Service you're looking for" required error={errors.service}>
               <select
                 required
                 value={form.service}
@@ -197,9 +160,7 @@ function Waitlist() {
                 ))}
               </select>
             </Field>
-            {errorMsg && (
-              <p className="md:col-span-2 text-sm text-destructive">{errorMsg}</p>
-            )}
+            {errorMsg && <p className="md:col-span-2 text-sm text-destructive">{errorMsg}</p>}
             <div className="md:col-span-2 pt-6 flex justify-end">
               <LiquidButton
                 type="submit"
@@ -237,9 +198,7 @@ function Field({
         {required && <span className="text-ink/40"> *</span>}
       </span>
       {children}
-      {error && (
-        <span className="block mt-2 text-[11px] text-destructive">{error}</span>
-      )}
+      {error && <span className="block mt-2 text-[11px] text-destructive">{error}</span>}
     </label>
   );
 }

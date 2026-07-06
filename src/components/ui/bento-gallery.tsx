@@ -1,3 +1,5 @@
+"use client";
+
 import { useRef } from "react";
 
 interface BentoCellProps {
@@ -8,7 +10,13 @@ interface BentoCellProps {
   objectPosition?: string;
 }
 
-function BentoCell({ src, alt, aspect, className = "", objectPosition = "center" }: BentoCellProps) {
+function BentoCell({
+  src,
+  alt,
+  aspect,
+  className = "",
+  objectPosition = "center",
+}: BentoCellProps) {
   const imgRef = useRef<HTMLImageElement>(null);
   const containerRef = useRef<HTMLDivElement>(null);
 
@@ -59,25 +67,48 @@ export function BentoGallery({ images }: BentoGalleryProps) {
   return (
     <section className="py-24 px-6 bg-ink">
       <div className="max-w-7xl mx-auto space-y-2">
-
         {/* Row 1: portrait (3:4 at 4/12) + landscape (3:2 at 8/12) — same height */}
         <div className="grid grid-cols-12 gap-2 items-start">
-          <BentoCell src={i1.src} alt={i1.alt} objectPosition={i1.objectPosition}
-            aspect="aspect-[3/4]" className="col-span-12 md:col-span-4" />
-          <BentoCell src={i2.src} alt={i2.alt} objectPosition={i2.objectPosition}
-            aspect="aspect-[3/2]" className="col-span-12 md:col-span-8" />
+          <BentoCell
+            src={i1.src}
+            alt={i1.alt}
+            objectPosition={i1.objectPosition}
+            aspect="aspect-[3/4]"
+            className="col-span-12 md:col-span-4"
+          />
+          <BentoCell
+            src={i2.src}
+            alt={i2.alt}
+            objectPosition={i2.objectPosition}
+            aspect="aspect-[3/2]"
+            className="col-span-12 md:col-span-8"
+          />
         </div>
 
         {/* Row 2: three portrait (2:3) */}
         <div className="grid grid-cols-12 gap-2 items-start">
-          <BentoCell src={i3.src} alt={i3.alt} objectPosition={i3.objectPosition}
-            aspect="aspect-[2/3]" className="col-span-12 md:col-span-4" />
-          <BentoCell src={i4.src} alt={i4.alt} objectPosition={i4.objectPosition}
-            aspect="aspect-[2/3]" className="col-span-12 md:col-span-4" />
-          <BentoCell src={i5.src} alt={i5.alt} objectPosition={i5.objectPosition}
-            aspect="aspect-[2/3]" className="col-span-12 md:col-span-4" />
+          <BentoCell
+            src={i3.src}
+            alt={i3.alt}
+            objectPosition={i3.objectPosition}
+            aspect="aspect-[2/3]"
+            className="col-span-12 md:col-span-4"
+          />
+          <BentoCell
+            src={i4.src}
+            alt={i4.alt}
+            objectPosition={i4.objectPosition}
+            aspect="aspect-[2/3]"
+            className="col-span-12 md:col-span-4"
+          />
+          <BentoCell
+            src={i5.src}
+            alt={i5.alt}
+            objectPosition={i5.objectPosition}
+            aspect="aspect-[2/3]"
+            className="col-span-12 md:col-span-4"
+          />
         </div>
-
       </div>
     </section>
   );

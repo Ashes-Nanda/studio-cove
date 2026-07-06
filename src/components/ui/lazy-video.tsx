@@ -1,3 +1,5 @@
+"use client";
+
 import { useEffect, useRef } from "react";
 
 interface LazyVideoProps {
@@ -26,7 +28,7 @@ export function LazyVideo({ src, poster, className }: LazyVideoProps) {
           observer.disconnect();
         }
       },
-      { rootMargin: "200px" }
+      { rootMargin: "200px" },
     );
 
     observer.observe(video);

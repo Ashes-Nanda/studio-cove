@@ -1,21 +1,21 @@
-import kirikStreet from "../assets/kirik-street.jpg";
-import kirikSquad from "../assets/kirik-squad.jpg";
-import kirikAuto from "../assets/kirik-auto.jpg";
-import kirikPoster from "../assets/kirik-poster.jpg";
-import dyskoRoom from "../assets/dysko-room.jpg";
-import dyskoImmersive from "../assets/dysko-immersive.jpg";
-import kalpaHorse from "../assets/kalpa-horse.jpg";
-import kalpaBirds from "../assets/kalpa-birds.jpg";
-import kalpaPortrait from "../assets/kalpa-portrait.jpg";
-import chinitaChef from "../assets/chinita-chef.jpg";
-import chinitaBurrito from "../assets/chinita-burrito.jpg";
-import chinitaDrink from "../assets/chinita-drink.jpg";
-import chinitaVeganuary from "../assets/chinita-veganuary.jpg";
-import fikaPost from "../assets/fika-post.jpg";
-import candices from "../assets/candices.jpg";
-import candlesBrewhouse from "../assets/candles-brewhouse.jpg";
-import muruMuru from "../assets/muru-muru.jpg";
-import svashudhi from "../assets/svashudhi.jpg";
+const kirikStreet = "/assets/kirik-street.jpg";
+const kirikSquad = "/assets/kirik-squad.jpg";
+const kirikAuto = "/assets/kirik-auto.jpg";
+const kirikPoster = "/assets/kirik-poster.jpg";
+const dyskoRoom = "/assets/dysko-room.jpg";
+const dyskoImmersive = "/assets/dysko-immersive.jpg";
+const kalpaHorse = "/assets/kalpa-horse.jpg";
+const kalpaBirds = "/assets/kalpa-birds.jpg";
+const kalpaPortrait = "/assets/kalpa-portrait.jpg";
+const chinitaChef = "/assets/chinita-chef.jpg";
+const chinitaBurrito = "/assets/chinita-burrito.jpg";
+const chinitaDrink = "/assets/chinita-drink.jpg";
+const chinitaVeganuary = "/assets/chinita-veganuary.jpg";
+const fikaPost = "/assets/fika-post.jpg";
+const candices = "/assets/candices.jpg";
+const candlesBrewhouse = "/assets/candles-brewhouse.jpg";
+const muruMuru = "/assets/muru-muru.jpg";
+const svashudhi = "/assets/svashudhi.jpg";
 
 export type Project = {
   slug: string;
@@ -142,8 +142,7 @@ export const projects: Project[] = [
       "A little kick, a lot of flavour. Saturated colour, hands-in-frame food, and recurring formats like 'Spend a Day Out with Chinita' that built a place, not just a menu.",
     process:
       "Monthly shoots covering bar, kitchen, and dining room. Moment marketing — Veganuary, monsoon menus — layered into a consistent visual cadence.",
-    reflection:
-      "F&B social wins on craving, not aesthetics. We made the page feel like the room.",
+    reflection: "F&B social wins on craving, not aesthetics. We made the page feel like the room.",
     results: [
       { label: "Hero series", value: "Day Out with Chinita" },
       { label: "Campaign", value: "Veganuary the Mexican way" },
@@ -187,14 +186,33 @@ export const projects: Project[] = [
 ];
 
 export const archive: ArchiveItem[] = [
-  { name: "Candice's Gourmet Sandwiches", category: "F&B", scope: ["Social Media", "Content Creation"], cover: candices },
-  { name: "Candles Brewhouse", category: "F&B", scope: ["Social Media", "Content Creation"], cover: candlesBrewhouse },
-  { name: "The Founder's Brewery", category: "Brewery", scope: ["Social Media", "Content Creation"] },
+  {
+    name: "Candice's Gourmet Sandwiches",
+    category: "F&B",
+    scope: ["Social Media", "Content Creation"],
+    cover: candices,
+  },
+  {
+    name: "Candles Brewhouse",
+    category: "F&B",
+    scope: ["Social Media", "Content Creation"],
+    cover: candlesBrewhouse,
+  },
+  {
+    name: "The Founder's Brewery",
+    category: "Brewery",
+    scope: ["Social Media", "Content Creation"],
+  },
   { name: "Tentworks Interactive", category: "Gaming", scope: ["Social Media", "Production"] },
   { name: "Toscano", category: "F&B", scope: ["Social Media", "Production"] },
   { name: "Fresh Pressery", category: "F&B", scope: ["Social Media", "Content Creation"] },
   { name: "Lavender", category: "F&B", scope: ["Social Media", "Content Creation"] },
-  { name: "Muru Muru", category: "F&B", scope: ["Social Media", "Content Creation"], cover: muruMuru },
+  {
+    name: "Muru Muru",
+    category: "F&B",
+    scope: ["Social Media", "Content Creation"],
+    cover: muruMuru,
+  },
   { name: "Svashudhi", category: "Wellness", scope: ["Branding", "Content"], cover: svashudhi },
   { name: "Dragon Draws", category: "Branding", scope: ["Logo", "Branding"] },
   { name: "Worqfit", category: "Branding", scope: ["Branding"] },
@@ -205,5 +223,4 @@ export const archive: ArchiveItem[] = [
   { name: "Raj Diamonds", category: "Jewelry", scope: ["Campaigns"] },
 ];
 
-export const getProject = (slug: string) =>
-  projects.find((p) => p.slug === slug);
+export const getProject = (slug: string) => projects.find((p) => p.slug === slug);

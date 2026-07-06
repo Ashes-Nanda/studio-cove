@@ -1,5 +1,6 @@
-import { Link } from "@tanstack/react-router";
-import logo from "../assets/cove-logo.png";
+import Link from "next/link";
+
+const logo = "/assets/cove-logo.png";
 
 export function Footer() {
   return (
@@ -36,7 +37,7 @@ export function Footer() {
           >
             Instagram
           </a>
-          <Link to="/waitlist" className="hover:text-accent transition-colors">
+          <Link href="/waitlist" className="hover:text-accent transition-colors">
             Waitlist
           </Link>
         </div>

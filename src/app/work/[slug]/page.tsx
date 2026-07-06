@@ -1,59 +1,39 @@
-import { createFileRoute, Link, notFound } from "@tanstack/react-router";
-import { getProject, projects } from "../data/projects";
+import type { Metadata } from "next";
+import Link from "next/link";
+import { notFound } from "next/navigation";
+import { getProject, projects } from "@/data/projects";
 
-export const Route = createFileRoute("/work/$slug")({
-  loader: ({ params }) => {
-    const project = getProject(params.slug);
-    if (!project) throw notFound();
-    return { project };
-  },
-  head: ({ loaderData }) => {
-    const p = loaderData?.project;
-    if (!p) return { meta: [{ title: "Case Study — Studio Cove" }] };
-    return {
-      meta: [
-        { title: `${p.title} — Studio Cove` },
-        { name: "description", content: p.brief.slice(0, 155) },
-        { property: "og:title", content: `${p.title} — Studio Cove` },
-        { property: "og:description", content: p.brief.slice(0, 155) },
-        { property: "og:image", content: p.cover },
-        { name: "twitter:image", content: p.cover },
-      ],
-    };
-  },
-  notFoundComponent: () => (
-    <div className="pt-40 px-6 text-center max-w-md mx-auto">
-      <p className="font-mono text-[10px] uppercase tracking-[0.3em] text-accent mb-6">
-        [ Not in archive ]
-      </p>
-      <h1 className="font-display italic text-5xl mb-6">
-        This case study could not be located.
-      </h1>
-      <Link
-        to="/work"
-        className="inline-block px-8 py-4 bg-ink text-paper text-[11px] uppercase tracking-[0.2em] hover:bg-accent transition-colors"
-      >
-        View the index
-      </Link>
-    </div>
-  ),
-  errorComponent: ({ error, reset }) => (
-    <div className="pt-40 px-6 text-center max-w-md mx-auto">
-      <h1 className="font-display italic text-4xl mb-6">A misprint occurred.</h1>
-      <p className="text-sm text-ink/60 mb-8">{error.message}</p>
-      <button
-        onClick={reset}
-        className="px-8 py-4 bg-ink text-paper text-[11px] uppercase tracking-[0.2em]"
-      >
-        Try again
-      </button>
-    </div>
-  ),
-  component: CaseStudy,
-});
+export function generateStaticParams() {
+  return projects.map((p) => ({ slug: p.slug }));
+}
 
-function CaseStudy() {
-  const { project } = Route.useLoaderData();
+export async function generateMetadata({
+  params,
+}: {
+  params: Promise<{ slug: string }>;
+}): Promise<Metadata> {
+  const { slug } = await params;
+  const p = getProject(slug);
+  if (!p) return { title: "Case Study — Studio Cove" };
+  return {
+    title: `${p.title} — Studio Cove`,
+    description: p.brief.slice(0, 155),
+    openGraph: {
+      title: `${p.title} — Studio Cove`,
+      description: p.brief.slice(0, 155),
+      images: [p.cover],
+    },
+    twitter: {
+      images: [p.cover],
+    },
+  };
+}
+
+export default async function CaseStudy({ params }: { params: Promise<{ slug: string }> }) {
+  const { slug } = await params;
+  const project = getProject(slug);
+  if (!project) notFound();
+
   const nextIndex = (projects.findIndex((p) => p.slug === project.slug) + 1) % projects.length;
   const next = projects[nextIndex];
 
@@ -63,7 +43,7 @@ function CaseStudy() {
       <section className="pt-32 pb-12 px-6">
         <div className="max-w-7xl mx-auto">
           <Link
-            to="/work"
+            href="/work"
             className="font-mono text-[10px] uppercase tracking-[0.2em] text-accent hover:text-ink transition-colors"
           >
             ← Index
@@ -95,9 +75,7 @@ function CaseStudy() {
       {/* Brief */}
       <section className="py-32 px-6">
         <div className="max-w-5xl mx-auto grid grid-cols-1 md:grid-cols-12 gap-12">
-          <p className="font-mono text-[10px] uppercase text-accent md:col-span-3">
-            [ Brief ]
-          </p>
+          <p className="font-mono text-[10px] uppercase text-accent md:col-span-3">[ Brief ]</p>
           <p className="md:col-span-9 text-2xl md:text-3xl font-display italic leading-tight text-pretty">
             {project.brief}
           </p>
@@ -155,11 +133,9 @@ function CaseStudy() {
       {/* Results */}
       <section className="py-24 px-6">
         <div className="max-w-7xl mx-auto">
-          <p className="font-mono text-[10px] uppercase text-accent mb-12">
-            [ Selected Results ]
-          </p>
+          <p className="font-mono text-[10px] uppercase text-accent mb-12">[ Selected Results ]</p>
           <div className="grid grid-cols-1 md:grid-cols-3 border-t border-border">
-            {project.results.map((r: { label: string; value: string }) => (
+            {project.results.map((r) => (
               <div
                 key={r.label}
                 className="py-10 px-2 border-b border-border md:border-b-0 md:[&:not(:last-child)]:border-r"
@@ -175,9 +151,7 @@ function CaseStudy() {
       {/* Reflection */}
       <section className="py-32 px-6 bg-ink text-paper text-center">
         <div className="max-w-3xl mx-auto">
-          <p className="font-mono text-[10px] uppercase text-accent mb-10">
-            [ Closing ]
-          </p>
+          <p className="font-mono text-[10px] uppercase text-accent mb-10">[ Closing ]</p>
           <p className="text-3xl md:text-4xl font-display italic leading-tight text-pretty">
             “{project.reflection}”
           </p>
@@ -188,19 +162,16 @@ function CaseStudy() {
       <section className="py-24 px-6 border-t border-border">
         <div className="max-w-7xl mx-auto flex flex-col md:flex-row md:justify-between md:items-end gap-8">
           <div>
-            <p className="font-mono text-[10px] uppercase text-accent mb-4">
-              [ Next ]
-            </p>
+            <p className="font-mono text-[10px] uppercase text-accent mb-4">[ Next ]</p>
             <Link
-              to="/work/$slug"
-              params={{ slug: next.slug }}
+              href={`/work/${next.slug}`}
               className="font-display italic text-4xl md:text-6xl hover:text-accent transition-colors"
             >
               {next.title} →
             </Link>
           </div>
           <Link
-            to="/work"
+            href="/work"
             className="font-mono text-[10px] uppercase tracking-[0.2em] text-ink/60 hover:text-ink transition-colors"
           >
             Return to index

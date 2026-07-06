@@ -1,4 +1,5 @@
-import { createFileRoute, Link } from "@tanstack/react-router";
+import type { Metadata } from "next";
+import Link from "next/link";
 
 const services = [
   {
@@ -23,27 +24,16 @@ const services = [
   },
 ];
 
-export const Route = createFileRoute("/services")({
-  head: () => ({
-    meta: [
-      { title: "Services — Studio Cove" },
-      {
-        name: "description",
-        content:
-          "Branding, social media, production, and campaigns — four pillars, one studio.",
-      },
-      { property: "og:title", content: "Services — Studio Cove" },
-      {
-        property: "og:description",
-        content:
-          "Branding, social media, production, and campaigns built in-house.",
-      },
-    ],
-  }),
-  component: Services,
-});
+export const metadata: Metadata = {
+  title: "Services — Studio Cove",
+  description: "Branding, social media, production, and campaigns — four pillars, one studio.",
+  openGraph: {
+    title: "Services — Studio Cove",
+    description: "Branding, social media, production, and campaigns built in-house.",
+  },
+};
 
-function Services() {
+export default function Services() {
   return (
     <>
       <section className="pt-40 pb-24 px-6 bg-paper">
@@ -55,7 +45,8 @@ function Services() {
             Four pillars. <br /> One studio.
           </h1>
           <p className="text-xl md:text-2xl text-ink/70 leading-relaxed max-w-2xl">
-            We organise the studio around what a brand actually needs in any given season. Every engagement is shaped from scratch and never templated.
+            We organise the studio around what a brand actually needs in any given season. Every
+            engagement is shaped from scratch and never templated.
           </p>
         </div>
       </section>
@@ -67,9 +58,7 @@ function Services() {
               key={s.n}
               className="grid grid-cols-12 gap-6 py-12 md:py-16 border-b border-border group"
             >
-              <p className="col-span-2 font-mono text-[10px] text-accent pt-2">
-                {s.n}.
-              </p>
+              <p className="col-span-2 font-mono text-[10px] text-accent pt-2">{s.n}.</p>
               <h2 className="col-span-10 md:col-span-5 font-display italic text-3xl md:text-5xl leading-tight">
                 {s.t}
               </h2>
@@ -90,7 +79,7 @@ function Services() {
             Tell us about your brand.
           </h2>
           <Link
-            to="/waitlist"
+            href="/waitlist"
             className="inline-block px-10 py-4 bg-ink text-paper text-[11px] uppercase tracking-[0.2em] hover:bg-accent transition-colors"
           >
             Start a Project
