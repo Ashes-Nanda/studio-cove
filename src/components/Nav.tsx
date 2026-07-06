@@ -17,7 +17,7 @@ export function Nav() {
         <img
           src={logo}
           alt="Studio Cove"
-          className={`h-6 md:h-7 w-auto ${isDark ? "invert" : ""}`}
+          className={`h-6 md:h-7 w-auto ${isDark ? "" : "invert"}`}
         />
       </Link>
       <div className="flex gap-6 md:gap-12 text-[10px] md:text-[11px] uppercase tracking-[0.2em] font-medium">
