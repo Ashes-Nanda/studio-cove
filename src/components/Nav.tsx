@@ -7,7 +7,7 @@ const logo = "/assets/cove-guidelines-10.png";
 
 export function Nav() {
   const pathname = usePathname();
-  const isDark = pathname !== "/work";
+  const isDark = pathname === "/";
 
   return (
     <nav
