@@ -8,7 +8,7 @@ import { LiquidButton } from "@/components/ui/liquid-glass-button";
 import Floating, { FloatingElement } from "@/components/ui/parallax-floating";
 import { motion } from "motion/react";
 
-const hero = "/assets/hero.jpg";
+const heroPoster = "/assets/hero-poster.jpg";
 const mollysVideo = "/assets/mollys.mp4";
 const kirikStreet = "/assets/kirik-street.jpg";
 const kirikPoster = "/assets/kirik-poster.jpg";
@@ -32,12 +32,12 @@ export function HomeContent() {
       <section className="relative min-h-screen flex flex-col justify-end px-6 pb-20 pt-32 overflow-hidden">
         <video
           src={mollysVideo}
-          poster={hero}
+          poster={heroPoster}
           autoPlay
           muted
           loop
           playsInline
-          preload="metadata"
+          preload="auto"
           className="absolute inset-0 w-full h-full object-cover"
         />
         <div className="absolute inset-0 bg-ink/30" />

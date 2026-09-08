@@ -8,7 +8,7 @@ export const metadata: Metadata = {
   description: "Selected work across F&B, FMCG, fashion, art, gaming, and culture.",
   openGraph: {
     title: "Work — Studio Cove",
-    description: "An index of recent commissions and case studies.",
+    description: "Selected work across F&B, FMCG, fashion, art, gaming, and culture.",
   },
 };
 
@@ -25,9 +25,6 @@ export default function WorkIndex() {
             <h1 className="text-[clamp(3.5rem,8vw,7rem)] leading-[0.85] font-display italic tracking-tighter text-ink">
               The Archive.
             </h1>
-            <p className="text-ink/50 max-w-sm text-base leading-relaxed">
-              Featured case studies, plus brands we&rsquo;ve shaped along the way.
-            </p>
           </div>
 
           {/* Right — video 16:9 with rounded corners */}

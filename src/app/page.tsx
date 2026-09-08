@@ -8,10 +8,10 @@ export const metadata: Metadata = {
   openGraph: {
     title: "Studio Cove — Making Waves",
     description: "A creative studio building brands across F&B, FMCG, fashion, and culture.",
-    images: ["/assets/hero.jpg"],
+    images: ["/assets/hero-poster.jpg"],
   },
   twitter: {
-    images: ["/assets/hero.jpg"],
+    images: ["/assets/hero-poster.jpg"],
   },
 };
 
