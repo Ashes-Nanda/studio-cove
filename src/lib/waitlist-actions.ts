@@ -10,15 +10,15 @@ async function writeToNotion(data: WaitlistInput) {
   const databaseId = process.env.NOTION_WAITLIST_DATABASE_ID;
 
   if (!LOVABLE_API_KEY || !NOTION_API_KEY || !databaseId) {
-    console.warn("[waitlist] Notion not yet configured. Submission stored to logs only.", {
-      ...data,
-      missing: {
-        LOVABLE_API_KEY: !LOVABLE_API_KEY,
-        NOTION_API_KEY: !NOTION_API_KEY,
-        NOTION_WAITLIST_DATABASE_ID: !databaseId,
-      },
-    });
-    return { delivered: false as const };
+    throw new Error(
+      `Notion not configured; missing: ${[
+        !LOVABLE_API_KEY && "LOVABLE_API_KEY",
+        !NOTION_API_KEY && "NOTION_API_KEY",
+        !databaseId && "NOTION_WAITLIST_DATABASE_ID",
+      ]
+        .filter(Boolean)
+        .join(", ")}`,
+    );
   }
 
   const res = await fetch(`${NOTION_GATEWAY}/pages`, {
@@ -50,6 +50,9 @@ async function writeToNotion(data: WaitlistInput) {
 }
 
 export async function submitWaitlist(input: unknown) {
+  // Honeypot: the hidden "website" field is only ever filled by bots; fake success so they move on.
+  if ((input as { website?: unknown } | null)?.website)
+    return { ok: true as const, delivered: false };
   const parsed = waitlistSchema.safeParse(input);
   if (!parsed.success) {
     return {

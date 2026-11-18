@@ -10,18 +10,102 @@ import { motion } from "motion/react";
 
 const heroPoster = "/assets/hero-poster.jpg";
 const mollysVideo = "/assets/mollys.mp4";
-const kirikStreet = "/assets/kirik-street.jpg";
-const kirikPoster = "/assets/kirik-poster.jpg";
-const dyskoRoom = "/assets/dysko-room.jpg";
-const dyskoImmersive = "/assets/dysko-immersive.jpg";
-const chinitaChef = "/assets/chinita-chef.jpg";
-const chinitaBurrito = "/assets/chinita-burrito.jpg";
-const kalpaPortrait = "/assets/kalpa-portrait.jpg";
-const kalpaBirds = "/assets/kalpa-birds.jpg";
-const brandingImg = "/assets/branding.jpg";
-const campaignsImg = "/assets/Campaigns.jpg";
-const socialMediaImg = "/assets/socialmedia.jpg";
-const productionImg = "/assets/production.jpg";
+const brandingImg = "/assets/branding.webp";
+const campaignsImg = "/assets/campaigns.webp";
+const socialMediaImg = "/assets/socialmedia.webp";
+const productionImg = "/assets/production.webp";
+
+// Floating collage around "Curated work." — pos keeps the centre clear for the heading.
+const collage = [
+  // top row
+  {
+    src: "/assets/kirik-street.jpg",
+    pos: "top-[3%] left-[3%]",
+    size: "w-16 h-20 md:w-32 md:h-40",
+    depth: 0.5,
+  },
+  {
+    src: "/assets/collage/raj-laugh.webp",
+    pos: "top-[6%] left-[22%]",
+    size: "w-16 h-20 md:w-28 md:h-36",
+    depth: 1.5,
+  },
+  {
+    src: "/assets/collage/toscano-pizza.webp",
+    pos: "top-[1%] left-[42%]",
+    size: "w-20 h-24 md:w-40 md:h-48",
+    depth: 2,
+  },
+  {
+    src: "/assets/kalpa-birds.jpg",
+    pos: "top-[5%] left-[63%]",
+    size: "w-16 h-16 md:w-32 md:h-32",
+    depth: 1,
+  },
+  {
+    src: "/assets/collage/candles-cocktail.webp",
+    pos: "top-[2%] left-[82%]",
+    size: "w-14 h-20 md:w-28 md:h-40",
+    depth: 2.5,
+  },
+  // upper middle
+  {
+    src: "/assets/collage/mollys-friends.webp",
+    pos: "top-[24%] left-[12%]",
+    size: "w-16 h-20 md:w-28 md:h-36",
+    depth: 3,
+  },
+  {
+    src: "/assets/collage/tfb-rider.webp",
+    pos: "top-[26%] left-[70%]",
+    size: "w-14 h-20 md:w-28 md:h-40",
+    depth: 1.5,
+  },
+  // middle sides
+  {
+    src: "/assets/dysko-room.jpg",
+    pos: "top-[44%] left-[1%]",
+    size: "w-20 h-20 md:w-36 md:h-36",
+    depth: 1,
+  },
+  {
+    src: "/assets/collage/kirik-yellow.webp",
+    pos: "top-[42%] left-[82%]",
+    size: "w-16 h-24 md:w-32 md:h-44",
+    depth: 2.5,
+  },
+  // bottom row
+  {
+    src: "/assets/chinita-chef.jpg",
+    pos: "top-[68%] left-[4%]",
+    size: "w-20 h-24 md:w-44 md:h-52",
+    depth: 3,
+  },
+  {
+    src: "/assets/collage/mollys-pasta.webp",
+    pos: "top-[76%] left-[30%]",
+    size: "w-16 h-20 md:w-32 md:h-40",
+    depth: 1.5,
+  },
+  {
+    src: "/assets/collage/pickwick-picnic.webp",
+    pos: "top-[70%] left-[50%]",
+    size: "w-20 h-16 md:w-40 md:h-28",
+    depth: 2,
+  },
+  {
+    src: "/assets/collage/trysquare-dog.webp",
+    pos: "top-[80%] left-[68%]",
+    size: "w-16 h-16 md:w-32 md:h-32",
+    depth: 1,
+  },
+  {
+    src: "/assets/collage/kirik-hands.webp",
+    pos: "top-[66%] left-[84%]",
+    size: "w-14 h-20 md:w-28 md:h-40",
+    depth: 2.5,
+  },
+];
 
 export function HomeContent() {
   const router = useRouter();
@@ -37,7 +121,7 @@ export function HomeContent() {
           muted
           loop
           playsInline
-          preload="auto"
+          preload="metadata"
           className="absolute inset-0 w-full h-full object-cover"
         />
         <div className="absolute inset-0 bg-ink/30" />
@@ -82,37 +166,13 @@ export function HomeContent() {
       </section>
 
       {/* Featured Work — Parallax */}
-      <section className="relative h-[700px] md:h-[800px] bg-paper overflow-hidden">
+      <section className="relative h-[760px] md:h-[900px] bg-paper overflow-hidden">
         <Floating sensitivity={-1}>
-          {/* Top row */}
-          <FloatingElement depth={0.5} className="top-[6%] left-[8%]">
-            <img src={kirikStreet} className="w-24 h-28 md:w-32 md:h-40 object-cover" />
-          </FloatingElement>
-          <FloatingElement depth={1.5} className="top-[4%] left-[30%]">
-            <img src={dyskoImmersive} className="w-20 h-24 md:w-28 md:h-36 object-cover" />
-          </FloatingElement>
-          <FloatingElement depth={2} className="top-[2%] left-[55%]">
-            <img src={chinitaBurrito} className="w-32 h-44 md:w-44 md:h-56 object-cover" />
-          </FloatingElement>
-          <FloatingElement depth={1} className="top-[5%] left-[82%]">
-            <img src={kalpaBirds} className="w-24 h-24 md:w-32 md:h-32 object-cover" />
-          </FloatingElement>
-
-          {/* Middle sides */}
-          <FloatingElement depth={1} className="top-[38%] left-[1%]">
-            <img src={dyskoRoom} className="w-28 h-28 md:w-36 md:h-36 object-cover" />
-          </FloatingElement>
-          <FloatingElement depth={2.5} className="top-[35%] left-[86%]">
-            <img src={kirikPoster} className="w-24 h-32 md:w-32 md:h-44 object-cover" />
-          </FloatingElement>
-
-          {/* Bottom row */}
-          <FloatingElement depth={3} className="top-[68%] left-[12%]">
-            <img src={chinitaChef} className="w-36 h-44 md:w-48 md:h-56 object-cover" />
-          </FloatingElement>
-          <FloatingElement depth={1} className="top-[72%] left-[55%]">
-            <img src={kalpaPortrait} className="w-24 h-24 md:w-32 md:h-32 object-cover" />
-          </FloatingElement>
+          {collage.map((c) => (
+            <FloatingElement key={c.src} depth={c.depth} className={c.pos}>
+              <img src={c.src} alt="" loading="lazy" className={`${c.size} object-cover`} />
+            </FloatingElement>
+          ))}
         </Floating>
 
         {/* Centre text */}

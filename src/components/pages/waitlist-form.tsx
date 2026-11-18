@@ -51,7 +51,8 @@ export function WaitlistForm() {
     setErrors({});
     setStatus("sending");
     try {
-      const res = await submitWaitlist(parsed.data);
+      const website = new FormData(e.currentTarget as HTMLFormElement).get("website");
+      const res = await submitWaitlist({ ...parsed.data, website });
       if (res.ok) {
         setStatus("done");
       } else {
@@ -160,6 +161,14 @@ export function WaitlistForm() {
                 ))}
               </select>
             </Field>
+            <input
+              type="text"
+              name="website"
+              tabIndex={-1}
+              autoComplete="off"
+              aria-hidden="true"
+              className="absolute -left-[9999px] h-0 w-0 opacity-0"
+            />
             {errorMsg && <p className="md:col-span-2 text-sm text-destructive">{errorMsg}</p>}
             <div className="md:col-span-2 pt-6 flex justify-end">
               <LiquidButton

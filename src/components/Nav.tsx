@@ -13,14 +13,14 @@ export function Nav() {
     <nav
       className={`fixed top-0 left-0 w-full z-50 px-6 py-3 flex justify-between items-center ${isDark ? "text-paper" : "text-ink"}`}
     >
-      <Link href="/" className="flex items-center" aria-label="Studio Cove home">
+      <Link href="/" className="flex items-center shrink-0 mr-4" aria-label="Studio Cove home">
         <img
           src={logo}
           alt="Studio Cove"
-          className={`h-6 md:h-7 w-auto ${isDark ? "" : "invert"}`}
+          className={`h-5 md:h-7 w-auto ${isDark ? "" : "invert"}`}
         />
       </Link>
-      <div className="flex gap-6 md:gap-12 text-[10px] md:text-[11px] uppercase tracking-[0.2em] font-medium">
+      <div className="flex gap-4 md:gap-12 text-[10px] md:text-[11px] uppercase tracking-[0.12em] md:tracking-[0.2em] font-medium">
         <Link href="/work" className="hover:opacity-60 transition-opacity">
           Work
         </Link>
