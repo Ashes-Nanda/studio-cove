@@ -15,96 +15,44 @@ const campaignsImg = "/assets/campaigns.webp";
 const socialMediaImg = "/assets/socialmedia.webp";
 const productionImg = "/assets/production.webp";
 
-// Floating collage around "Curated work." — pos keeps the centre clear for the heading.
-const collage = [
-  // top row
-  {
-    src: "/assets/kirik-street.jpg",
-    pos: "top-[3%] left-[3%]",
-    size: "w-16 h-20 md:w-32 md:h-40",
-    depth: 0.5,
-  },
-  {
-    src: "/assets/collage/raj-laugh.webp",
-    pos: "top-[6%] left-[22%]",
-    size: "w-16 h-20 md:w-28 md:h-36",
-    depth: 1.5,
-  },
-  {
-    src: "/assets/collage/toscano-pizza.webp",
-    pos: "top-[1%] left-[42%]",
-    size: "w-20 h-24 md:w-40 md:h-48",
-    depth: 2,
-  },
-  {
-    src: "/assets/kalpa-birds.jpg",
-    pos: "top-[5%] left-[63%]",
-    size: "w-16 h-16 md:w-32 md:h-32",
-    depth: 1,
-  },
-  {
-    src: "/assets/collage/candles-cocktail.webp",
-    pos: "top-[2%] left-[82%]",
-    size: "w-14 h-20 md:w-28 md:h-40",
-    depth: 2.5,
-  },
-  // upper middle
-  {
-    src: "/assets/collage/mollys-friends.webp",
-    pos: "top-[24%] left-[12%]",
-    size: "w-16 h-20 md:w-28 md:h-36",
-    depth: 3,
-  },
-  {
-    src: "/assets/collage/tfb-rider.webp",
-    pos: "top-[26%] left-[70%]",
-    size: "w-14 h-20 md:w-28 md:h-40",
-    depth: 1.5,
-  },
-  // middle sides
-  {
-    src: "/assets/dysko-room.jpg",
-    pos: "top-[44%] left-[1%]",
-    size: "w-20 h-20 md:w-36 md:h-36",
-    depth: 1,
-  },
-  {
-    src: "/assets/collage/kirik-yellow.webp",
-    pos: "top-[42%] left-[82%]",
-    size: "w-16 h-24 md:w-32 md:h-44",
-    depth: 2.5,
-  },
-  // bottom row
-  {
-    src: "/assets/chinita-chef.jpg",
-    pos: "top-[68%] left-[4%]",
-    size: "w-20 h-24 md:w-44 md:h-52",
-    depth: 3,
-  },
-  {
-    src: "/assets/collage/mollys-pasta.webp",
-    pos: "top-[76%] left-[30%]",
-    size: "w-16 h-20 md:w-32 md:h-40",
-    depth: 1.5,
-  },
-  {
-    src: "/assets/collage/pickwick-picnic.webp",
-    pos: "top-[70%] left-[50%]",
-    size: "w-20 h-16 md:w-40 md:h-28",
-    depth: 2,
-  },
-  {
-    src: "/assets/collage/trysquare-dog.webp",
-    pos: "top-[80%] left-[68%]",
-    size: "w-16 h-16 md:w-32 md:h-32",
-    depth: 1,
-  },
-  {
-    src: "/assets/collage/kirik-hands.webp",
-    pos: "top-[66%] left-[84%]",
-    size: "w-14 h-20 md:w-28 md:h-40",
-    depth: 2.5,
-  },
+// Collage shapes, sized for phones / tablets+ / wide screens.
+const P = "w-14 h-[72px] md:w-28 md:h-36 xl:w-36 xl:h-48";
+const S = "w-14 h-14 md:w-28 md:h-28 xl:w-36 xl:h-36";
+const L = "w-16 h-12 md:w-36 md:h-28 xl:w-48 xl:h-36";
+
+// [image, top %, left %, shape, parallax depth, hide on phones]
+// Rows leave the centre clear for the "Curated work." heading.
+const collage: [string, number, number, string, number, boolean?][] = [
+  ["kirik-street.jpg", 2, 2, P, 0.5],
+  ["collage/raj-laugh.webp", 4, 15, P, 1.5, true],
+  ["collage/toscano-pizza.webp", 1, 28, L, 2],
+  ["work/cgs-drink.webp", 5, 42, P, 1, true],
+  ["work/house-of-kalpa-1.webp", 2, 56, S, 2.5],
+  ["collage/candles-cocktail.webp", 6, 70, P, 3, true],
+  ["work/mollys-interior.webp", 2, 86, L, 1],
+  ["work/chinita-tostadas.webp", 22, 8, L, 2],
+  ["work/tfb-beer.webp", 20, 21, P, 1, true],
+  ["collage/mollys-friends.webp", 23, 35, P, 3],
+  ["work/kovedaa-1.webp", 21, 61, P, 1.5],
+  ["collage/tfb-rider.webp", 24, 74, P, 2.5, true],
+  ["work/cocktail-pour.webp", 21, 88, S, 0.5],
+  ["dysko-room.jpg", 41, 2, S, 1],
+  ["work/lavender-burger.webp", 52, 13, S, 2.5, true],
+  ["collage/kirik-yellow.webp", 40, 80, P, 2, true],
+  ["work/fnb-friends.webp", 54, 90, P, 1.5],
+  ["chinita-chef.jpg", 66, 4, P, 3],
+  ["work/raj-diamonds-2.webp", 68, 18, P, 1, true],
+  ["work/cgs-sandwich.webp", 65, 32, L, 2],
+  ["work/svashudhi-1.webp", 69, 50, S, 1.5, true],
+  ["work/toscano-cocktails.webp", 66, 66, P, 0.5],
+  ["work/pickwick-2.webp", 68, 84, P, 2.5],
+  ["collage/mollys-pasta.webp", 84, 9, S, 1.5],
+  ["work/chinita-sign.webp", 82, 23, P, 2.5, true],
+  ["collage/pickwick-picnic.webp", 85, 37, L, 1],
+  ["work/kirik-shop.webp", 82, 51, P, 3, true],
+  ["collage/trysquare-dog.webp", 85, 65, L, 2],
+  ["work/mollys-apron.webp", 83, 79, P, 0.5, true],
+  ["collage/kirik-hands.webp", 82, 90, P, 1.5],
 ];
 
 export function HomeContent() {
@@ -166,11 +114,21 @@ export function HomeContent() {
       </section>
 
       {/* Featured Work — Parallax */}
-      <section className="relative h-[760px] md:h-[900px] bg-paper overflow-hidden">
+      <section className="relative h-[760px] md:h-[900px] xl:h-[1000px] bg-paper overflow-hidden">
         <Floating sensitivity={-1}>
-          {collage.map((c) => (
-            <FloatingElement key={c.src} depth={c.depth} className={c.pos}>
-              <img src={c.src} alt="" loading="lazy" className={`${c.size} object-cover`} />
+          {collage.map(([src, top, left, size, depth, desktopOnly]) => (
+            <FloatingElement
+              key={src}
+              depth={depth}
+              className={desktopOnly ? "hidden md:block" : undefined}
+              style={{ top: `${top}%`, left: `${left}%` }}
+            >
+              <img
+                src={`/assets/${src}`}
+                alt=""
+                loading="lazy"
+                className={`${size} object-cover`}
+              />
             </FloatingElement>
           ))}
         </Floating>

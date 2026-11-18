@@ -90,9 +90,15 @@ interface FloatingElementProps {
   children: ReactNode;
   className?: string;
   depth?: number;
+  style?: React.CSSProperties;
 }
 
-export const FloatingElement = ({ children, className, depth = 1 }: FloatingElementProps) => {
+export const FloatingElement = ({
+  children,
+  className,
+  depth = 1,
+  style,
+}: FloatingElementProps) => {
   const elementRef = useRef<HTMLDivElement>(null);
   const idRef = useRef(Math.random().toString(36).substring(7));
   const context = useContext(FloatingContext);
@@ -107,7 +113,7 @@ export const FloatingElement = ({ children, className, depth = 1 }: FloatingElem
   }, [depth]);
 
   return (
-    <div ref={elementRef} className={cn("absolute will-change-transform", className)}>
+    <div ref={elementRef} className={cn("absolute will-change-transform", className)} style={style}>
       {children}
     </div>
   );
