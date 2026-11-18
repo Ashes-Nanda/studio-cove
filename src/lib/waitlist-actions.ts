@@ -10,15 +10,15 @@ async function writeToNotion(data: WaitlistInput) {
   const databaseId = process.env.NOTION_WAITLIST_DATABASE_ID;
 
   if (!LOVABLE_API_KEY || !NOTION_API_KEY || !databaseId) {
-    throw new Error(
-      `Notion not configured; missing: ${[
-        !LOVABLE_API_KEY && "LOVABLE_API_KEY",
-        !NOTION_API_KEY && "NOTION_API_KEY",
-        !databaseId && "NOTION_WAITLIST_DATABASE_ID",
-      ]
-        .filter(Boolean)
-        .join(", ")}`,
-    );
+    console.warn("[waitlist] Notion not yet configured. Submission stored to logs only.", {
+      ...data,
+      missing: {
+        LOVABLE_API_KEY: !LOVABLE_API_KEY,
+        NOTION_API_KEY: !NOTION_API_KEY,
+        NOTION_WAITLIST_DATABASE_ID: !databaseId,
+      },
+    });
+    return { delivered: false as const };
   }
 
   const res = await fetch(`${NOTION_GATEWAY}/pages`, {
