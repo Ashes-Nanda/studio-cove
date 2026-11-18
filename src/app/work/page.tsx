@@ -1,15 +1,13 @@
 import type { Metadata } from "next";
-import { BentoGallery } from "@/components/ui/bento-gallery";
 import { LazyVideo } from "@/components/ui/lazy-video";
 
-const kiranaVideo = "/assets/kirana-hero.mp4";
-const kiranaPoster = "/assets/kirana-hero.webp";
-
 // Files live in /public/assets/reels/<name>.mp4 with a matching <name>.webp poster.
+// Vertical reels run in the hero; landscape films in the Motion section.
 const verticalReels = ["dare-to-steal", "kirik-06", "janot-event-reel", "wordcraft-01", "janot-02"];
 // First landscape reel is the featured film and spans the full row.
 const landscapeReels = [
   "broker-w-subs",
+  "kirana",
   "mollys-04",
   "janot-nov-reel-10",
   "mollys-1",
@@ -99,85 +97,39 @@ export const metadata: Metadata = {
 export default function WorkIndex() {
   return (
     <>
-      <section className="min-h-screen bg-paper flex items-center px-6 md:px-16 pt-24 pb-16">
-        <div className="max-w-7xl mx-auto w-full grid grid-cols-1 md:grid-cols-2 gap-16 md:gap-24 items-center">
-          {/* Left — text */}
-          <div className="space-y-10">
-            <p className="font-mono text-[10px] uppercase tracking-[0.3em] text-accent">
-              [ Index / 2023 &mdash; 2026 ]
-            </p>
-            <h1 className="text-[clamp(3.5rem,8vw,7rem)] leading-[0.85] font-display italic tracking-tighter text-ink">
-              The Archive.
-            </h1>
-          </div>
-
-          {/* Right — video 16:9 with rounded corners */}
-          <div className="w-full aspect-video rounded-3xl overflow-hidden shadow-[0_32px_80px_rgba(0,0,0,0.18)]">
+      <section className="md:min-h-screen bg-paper px-6 md:px-16 pt-32 pb-16 md:pb-24 flex flex-col">
+        <div className="max-w-7xl mx-auto w-full flex flex-col md:flex-row md:items-end justify-between gap-6 mb-12">
+          <h1 className="text-[clamp(3.5rem,10vw,9rem)] leading-[0.85] font-display italic tracking-tighter text-ink">
+            The Archive.
+          </h1>
+          <p className="font-mono text-[10px] uppercase tracking-[0.3em] text-accent md:pb-4">
+            [ Index / 2023 &mdash; 2026 ]
+          </p>
+        </div>
+        <div className="max-w-7xl mx-auto w-full grid grid-cols-3 md:grid-cols-5 gap-2">
+          {verticalReels.map((r, i) => (
             <video
-              src={kiranaVideo}
-              poster={kiranaPoster}
+              key={r}
+              src={`/assets/reels/${r}.mp4`}
+              poster={`/assets/reels/${r}.webp`}
               autoPlay
               muted
               loop
               playsInline
               preload="metadata"
-              className="w-full h-full object-cover"
+              className={`w-full aspect-[9/16] object-cover rounded-xl bg-ink/5 ${i > 2 ? "hidden md:block" : ""} ${i % 2 ? "md:translate-y-10" : ""}`}
             />
-          </div>
+          ))}
         </div>
       </section>
 
-      <BentoGallery
-        images={[
-          {
-            src: "/assets/bento-1.jpg",
-            alt: "Studio Cove — production 1",
-            objectPosition: "center top",
-          },
-          {
-            src: "/assets/bento-2.jpg",
-            alt: "Studio Cove — production 2",
-            objectPosition: "center",
-          },
-          {
-            src: "/assets/bento-3.jpg",
-            alt: "Studio Cove — production 3",
-            objectPosition: "center",
-          },
-          {
-            src: "/assets/bento-4.jpg",
-            alt: "Studio Cove — production 4",
-            objectPosition: "center top",
-          },
-          {
-            src: "/assets/bento-6.jpg",
-            alt: "Studio Cove — production 6",
-            objectPosition: "center 30%",
-          },
-        ]}
-      />
-
-      {/* Motion */}
       <section className="py-24 px-6 bg-paper">
         <div className="max-w-7xl mx-auto">
           <p className="font-mono text-[10px] uppercase tracking-[0.3em] text-accent mb-6">
             [ Motion ]
           </p>
-          <h2 className="text-4xl md:text-6xl font-display italic text-ink mb-12">
-            Reels &amp; films.
-          </h2>
-          <div className="grid grid-cols-2 md:grid-cols-5 gap-2">
-            {verticalReels.map((r) => (
-              <div key={r} className="aspect-[9/16] overflow-hidden rounded-xl bg-ink/5">
-                <LazyVideo
-                  src={`/assets/reels/${r}.mp4`}
-                  poster={`/assets/reels/${r}.webp`}
-                  className="w-full h-full object-cover"
-                />
-              </div>
-            ))}
-          </div>
-          <div className="grid grid-cols-1 md:grid-cols-2 gap-2 mt-2">
+          <h2 className="text-4xl md:text-6xl font-display italic text-ink mb-12">Films.</h2>
+          <div className="grid grid-cols-1 md:grid-cols-2 gap-2">
             {landscapeReels.map((r, i) => (
               <div
                 key={r}
